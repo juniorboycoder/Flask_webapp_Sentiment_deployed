@@ -1,0 +1,7 @@
+numpy==1.17.0
+ibm_cloud_sdk_core==1.7.3
+ibm_watson==4.7.1
+pandas==0.25.0
+gensim==3.8.3
+Flask==1.1.2
+nltk==3.4.5
