@@ -88,8 +88,8 @@ def index():
             result2=result111[80:].splitlines()
             
             #using your trained model
-            pickle_in = open("nlpsenti.pickle","rb")
-            model = pickle.load(pickle_in)
+            #pickle_in = open("nlpsenti.pickle","rb")
+            #model = pickle.load(pickle_in)
 
             
 
@@ -139,8 +139,8 @@ def index():
             result2=result111[80:].splitlines()
             
             #using your trained model
-            pickle_in = open("nlpsenti.pickle","rb")
-            model = pickle.load(pickle_in)
+            #pickle_in = open("nlpsenti.pickle","rb")
+            #model = pickle.load(pickle_in)
 
             
 
@@ -191,8 +191,8 @@ def index():
             result2=result111[80:].splitlines()
             
             #using your trained model
-            pickle_in = open("nlpsenti.pickle","rb")
-            model = pickle.load(pickle_in)
+            #pickle_in = open("nlpsenti.pickle","rb")
+            #model = pickle.load(pickle_in)
 
             
 
@@ -243,8 +243,8 @@ def index():
             result2=result111[80:].splitlines()
             
             #using your trained model
-            pickle_in = open("nlpsenti.pickle","rb")
-            model = pickle.load(pickle_in)
+            #pickle_in = open("nlpsenti.pickle","rb")
+            #model = pickle.load(pickle_in)
 
             
 
@@ -294,8 +294,8 @@ def index():
             result2=result111[80:].splitlines()
             
             #using your trained model
-            pickle_in = open("nlpsenti.pickle","rb")
-            model = pickle.load(pickle_in)
+            #pickle_in = open("nlpsenti.pickle","rb")
+            #model = pickle.load(pickle_in)
 
             resposesum=summarize(username5, ratio=0.5)
 
