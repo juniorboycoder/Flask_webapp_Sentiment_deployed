@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% block head %}
+    <title>Document</title>
+    {% endblock %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+<body>
+
+        {% block body%}
+
+<body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Sentiment_King<i class='far fa-grin-squint' style='font-size:15px'></i><i class='far fa-grin' style='font-size:15px'></i><i class='far fa-grimace' style='font-size:15px'></i></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+               
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="#wordsenti">Word Sentiment <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <div class="vr">&nbsp;</div>
+
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#getall">Get (Sentiments, Emotion & Categories) of Keywords & Entities</a>
+                      </li>
+                      <div class="vr">&nbsp;</div>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#wordandemo">Get word sentiment & emotions</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#wordandcate"> Get word sentiment & Category </a>
+                      </li>
+                    
+                      <li class="nav-item">
+                        <a class="nav-link" href="#wordandsum">  Get word sentiment and summarise text </a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a class="nav-link" href="#wordandcustom"> Custom classifier for hotel room sentiment </a>
+                      </li>
+                  </ul>
+                  <div class="form-inline my-2 my-lg-0">
+                    <a class="nav-link" href="#"> API FEATURES </a>
+                  </div>
+                </div>
+              </nav>
+<div class="jumbotron">
+<div class="container">
+    <h4> WORD :</h4>
+    {% if message %}
+    <p>{{ message }}</p>
+    <br>
+    <br>
+  
+    {% endif %}
+
+    <h6>SENTIMENTS/ EMOTIONS / CATEGORY / SUMMARY :</h6>
+    {% if message2 %}
+    <p>{{ message3 }}</p>
+    <p>{{ message2 }}</p>
+    
+    {% endif %}
+
+    
+
+    <hr class="my-4">
+
+
+     
+
+
+
+
+
+    <div class="row col-lg-12" id="wordsenti">
+
+            <form action="" method="post" class="col-lg-6">
+                    <p>
+                        
+            
+            
+                  
+                        <textarea class="form-control" rows="5" id="comment" name="username2"></textarea>
+                      
+                    </p>
+                   
+                    <p>
+                        <button class="btn btn-info" type="submit" name="submit_b" value="submit_b"> Get word Sentiment </button>
+                    </p>
+                </form>
+    <form action="" method="post" class="col-lg-6"  id="getall">
+        <p>
+            
+
+
+      
+            <textarea class="form-control" rows="5" id="comment" name="username"></textarea>
+          
+        </p>
+       
+        <p>
+            <button class="btn btn-info" type="submit" name="submit_a" value="submit_a"> Get (Sentiments, Emotion & Categories) of Keywords & Entities </button>
+        </p>
+    </form>
+
+    <hr class="my-4">
+
+
+    <form action="" method="post" class="col-lg-6"  id="wordandemo">
+        <p>
+            
+
+
+      
+            <textarea class="form-control" rows="5" id="comment" name="username3"></textarea>
+          
+        </p>
+       
+        <p>
+            <button class="btn btn-info" type="submit" name="submit_c" value="submit_b"> Get word sentiment & emotions </button>
+        </p>
+    </form>
+
+    <form action="" method="post" class="col-lg-6" id="wordandcate">
+    
+        <p>
+            
+
+
+      
+            <textarea class="form-control" rows="5" id="comment" name="username4"></textarea>
+          
+        </p>
+       
+        <p>
+            <button class="btn btn-info" type="submit" name="submit_d" value="submit_b"> Get word sentiment & Category </button>
+        </p>
+    </form>
+
+    <form action="" method="post" class="col-lg-6" id="wordandsum">
+ 
+        <p>
+            
+
+
+      
+            <textarea class="form-control" rows="5" id="comment" name="username5"></textarea>
+          
+        </p>
+       
+        <p>
+            <button class="btn btn-info" type="submit" name="submit_e" value="submit_b"> Get word sentiment and summarise text (into category,keywords & relevance) </button>
+        </p>
+    </form>
+
+    <form action="" method="post" class="col-lg-6" id="wordandcustom">
+   
+        <p>
+            
+
+
+      
+            <textarea class="form-control" rows="5" id="comment" name="username6"></textarea>
+          
+        </p>
+       
+        <p>
+            <button class="btn btn-info" type="submit" name="submit_f" value="submit_b"> Custom classifier for hotel room sentiment </button>
+        </p>
+    </form>
+  </div>
+  
+</div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+        {% endblock %}
+   
+</body>
+</html>
+
