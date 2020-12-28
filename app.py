@@ -315,8 +315,8 @@ def index():
            
             
             #using your trained model
-            pickle_in = open("hotel2.pickle","rb")
-            model = pickle.load(pickle_in)
+            #pickle_in = open("hotel2.pickle","rb")
+            #model = pickle.load(pickle_in)
 
             resposesum=model.predict([username6])
 
@@ -396,9 +396,7 @@ def Word_Sentiment(username):
             result111=result11.replace('document', 'The_Whole_Sentence')
             result2=result111[80:].splitlines()
             
-            #using your trained model
-            pickle_in = open("nlpsenti.pickle","rb")
-            model = pickle.load(pickle_in)
+           
 
             xx = {
             "word": username,
@@ -473,10 +471,7 @@ def Word_Sentiment_and_Emotions(username):
             result111=result11.replace('document', 'The_Whole_Sentence')
             result2=result111[80:].splitlines()
             
-            #using your trained model
-            pickle_in = open("nlpsenti.pickle","rb")
-            model = pickle.load(pickle_in)
-
+           
             xx = {
             "word": username,
             
@@ -549,10 +544,7 @@ def Word_Sentiment_and_Category(username):
             result111=result11.replace('document', 'The_Whole_Sentence')
             result2=result111[80:].splitlines()
             
-            #using your trained model
-            pickle_in = open("nlpsenti.pickle","rb")
-            model = pickle.load(pickle_in)
-
+           
             xx = {
             "word": username,
             
@@ -626,10 +618,7 @@ def Word_Sentiment_Emotions_and_Category(username):
             result111=result11.replace('document', 'The_Whole_Sentence')
             result2=result111[80:].splitlines()
             
-            #using your trained model
-            pickle_in = open("nlpsenti.pickle","rb")
-            model = pickle.load(pickle_in)
-
+           
             xx = {
             "word": username,
             
@@ -655,8 +644,8 @@ def Hotel_Sentiment(username):
     if request.method == 'GET':
         if username == username:
 
-            pickle_in = open("hotel2.pickle","rb")
-            model = pickle.load(pickle_in)
+            #pickle_in = open("hotel2.pickle","rb")
+            #model = pickle.load(pickle_in)
 
             resposesum=model.predict([username])
 
