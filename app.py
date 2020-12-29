@@ -9,6 +9,10 @@ from ibm_watson.natural_language_understanding_v1 import Features, CategoriesOpt
 from flask import redirect,request
 import pickle
 
+import nltk
+nltk.downloader.download('vader_lexicon')
+
+
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 
@@ -318,7 +322,7 @@ def index():
             #pickle_in = open("hotel2.pickle","rb")
             #model = pickle.load(pickle_in)
 
-            resposesum=model.predict([username6])
+            #resposesum=model.predict([username6])
 
             print(resposesum)       
 
@@ -671,6 +675,7 @@ def Hotel_Sentiment(username):
 #incase running form command line ,to give full error. and continue running code
 if __name__=="__main__":
     app.run(debug=True)
+
 
 
 #function for the main app
