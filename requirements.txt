@@ -8,3 +8,4 @@ numpy==1.17.0
 gunicorn
 vader==0.0.2
 PyJWT==1.7.1
+boto3==1.13.16
