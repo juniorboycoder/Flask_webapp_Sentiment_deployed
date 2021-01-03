@@ -12,6 +12,7 @@ import pickle
 import nltk
 nltk.downloader.download('vader_lexicon')
 
+from io import BytesIO
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
@@ -21,11 +22,32 @@ from gensim.summarization import keywords
 import pandas as pd
 import numpy as np
 
+import boto3
+import os
+from os import environ
 
+from os import getenv
+
+
+
+
+#os.enviro['aws_access_key_id']
+#os.enviro['aws_secret_access_key']
 
 app= Flask(__name__)
 
+aws_access_key_id = getenv('aws_access_key_id', None)
+aws_secret_access_key = getenv('aws_secret_access_key', None)
 
+
+
+
+#app.config['aws_access_key_id']= environ.get('aws_access_key_id')
+
+#app.config['aws_secret_access_key']= environ.get('aws_secret_access_key')
+
+a= aws_access_key_id 
+b=aws_secret_access_key
 
 
 
@@ -301,6 +323,8 @@ def index():
             #pickle_in = open("nlpsenti.pickle","rb")
             #model = pickle.load(pickle_in)
 
+           
+
             resposesum=summarize(username5, ratio=0.5)
 
           
@@ -324,12 +348,22 @@ def index():
 
             #resposesum=model.predict([username6])
 
-            print(resposesum)       
+            s3 = boto3.resource('s3',aws_access_key_id=a,
+         aws_secret_access_key= b ,region_name='us-east-2')
+            with open('nlpsenti.pickle', 'wb') as data:
+                s3.Bucket("projectsss").download_fileobj("nlpsenti.pickle", data)
+
+            with open('nlpsenti.pickle', 'rb') as data:
+                resposesum = pickle.load(data)
+
+            print(resposesum) 
+
+            resposesum=resposesum.predict([username6])      
 
             if username6 == username6:
                 message = username6
                
-                message3=resposesum
+                message3=resposesum[0]
      
 
 
@@ -643,21 +677,27 @@ def Word_Sentiment_Emotions_and_Category(username):
     return message
 
 
-@app.route('/Hotel_Sentment/<username>' ,methods=['GET'])
+@app.route('/Hotel_Sentiment/<username>' ,methods=['GET'])
 def Hotel_Sentiment(username):
     if request.method == 'GET':
         if username == username:
 
-            #pickle_in = open("hotel2.pickle","rb")
-            #model = pickle.load(pickle_in)
+           
 
-            resposesum=model.predict([username])
+            s3 = boto3.resource('s3',aws_access_key_id=a, aws_secret_access_key= b ,region_name='us-east-2')
+            with open('nlpsenti.pickle', 'wb') as data:
+                s3.Bucket("projectsss").download_fileobj("nlpsenti.pickle", data)
+
+            with open('nlpsenti.pickle', 'rb') as data:
+                resposesum = pickle.load(data)
 
             print(resposesum) 
 
+            resposesum=resposesum.predict([username])    
+
             
 
-            xx = dict(np.ndenumerate(resposesum))
+            xx = str(resposesum)
            
             # convert into JSON:
             yy = xx
@@ -668,9 +708,9 @@ def Hotel_Sentiment(username):
            
                 message=yy
                
-            return message 
+            return  json.dumps(message)
     
-    return message
+    return '</h1>' + message + '</h1>'
 
 #incase running form command line ,to give full error. and continue running code
 if __name__=="__main__":
