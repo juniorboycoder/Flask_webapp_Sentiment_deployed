@@ -348,8 +348,8 @@ def index():
 
             #resposesum=model.predict([username6])
 
-            s3 = boto3.resource('s3',aws_access_key_id='AKIAUBCV4RJX6OE5MDE3',
-         aws_secret_access_key= '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' ,region_name='us-east-2')
+            s3 = boto3.resource('s3',aws_access_key_id=a,
+         aws_secret_access_key= b ,region_name='us-east-2')
             with open('nlpsenti.pickle', 'wb') as data:
                 s3.Bucket("projectsss").download_fileobj("nlpsenti.pickle", data)
 
@@ -684,7 +684,7 @@ def Hotel_Sentiment(username):
 
            
 
-            s3 = boto3.resource('s3',aws_access_key_id='AKIAUBCV4RJX6OE5MDE3', aws_secret_access_key= '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' ,region_name='us-east-2')
+            s3 = boto3.resource('s3',aws_access_key_id=a, aws_secret_access_key= b ,region_name='us-east-2')
             with open('nlpsenti.pickle', 'wb') as data:
                 s3.Bucket("projectsss").download_fileobj("nlpsenti.pickle", data)
 
@@ -710,7 +710,7 @@ def Hotel_Sentiment(username):
                
             return  json.dumps(message)
     
-    return message 
+    return '</h1>' + message + '</h1>'
 
 #incase running form command line ,to give full error. and continue running code
 if __name__=="__main__":
