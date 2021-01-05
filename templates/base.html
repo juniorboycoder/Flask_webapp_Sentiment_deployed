@@ -21,6 +21,34 @@
 
         {% block body%}
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+        
+
+        <style>
+            #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+position: fixed;
+left: 0px;
+top: 0px;
+width: 100%;
+height: 100%;
+z-index: 9999;
+background: url(https://projectsss.s3.us-east-2.amazonaws.com/ScaryNegligibleArcherfish-small.gif) center no-repeat #fff;
+}
+              
+          </style>
+
+<script>
+    $(window).load(function() {
+      // Animate loader off screen
+      $(".se-pre-con").fadeOut("slow");;
+    });
+   </script>        
 <body>
 
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
@@ -61,7 +89,7 @@
                       </li>
                   </ul>
                   <div class="form-inline my-2 my-lg-0">
-                    <a class="nav-link shadow p-3  bg-grey rounded" href="#"> API FEATURES </a>
+                    <a class="nav-link shadow p-3  bg-grey rounded"  data-toggle="modal" data-target="#APIModal"> API FEATURES </a>
                   </div>
                 </div>
               </nav>
@@ -106,12 +134,12 @@
             
             
                   
-                        <textarea class="form-control" rows="5" id="comment" name="username2"></textarea>
+                        <textarea class="form-control" rows="5" id="comment" name="username2" placeholder="Enter text"></textarea>
                       
                     </p>
                    
                     <p>
-                        <button class="btn btn-info shadow-lg p-3 rounded" type="submit" name="submit_b" value="submit_b"> Get word Sentiment </button>
+                        <button class="btn btn-info shadow-lg p-3 rounded" type="submit" name="submit_b" value="submit_b" placeholder="Enter text"> Get word Sentiment </button>
                     </p>
                 </form>
    
@@ -125,7 +153,7 @@
 
 
       
-            <textarea class="form-control" rows="5" id="comment" name="username3"></textarea>
+            <textarea class="form-control" rows="5" id="comment" name="username3" placeholder="Enter text"></textarea>
           
         </p>
        
@@ -141,7 +169,7 @@
 
 
       
-            <textarea class="form-control" rows="5" id="comment" name="username4"></textarea>
+            <textarea class="form-control" rows="5" id="comment" name="username4" placeholder="Enter text"></textarea>
           
         </p>
        
@@ -156,7 +184,7 @@
 
 
     
-          <textarea class="form-control" rows="5" id="comment" name="username"></textarea>
+          <textarea class="form-control" rows="5" id="comment" name="username" placeholder="Enter text"></textarea>
         
       </p>
      
@@ -172,12 +200,12 @@
 
 
       
-            <textarea class="form-control" rows="5" id="comment" name="username5"></textarea>
+            <textarea class="form-control" rows="5" id="comment" name="username5" placeholder="Enter text"></textarea>
           
         </p>
        
         <p>
-            <button class="btn btn-info shadow-lg p-3 rounded" type="submit" name="submit_e" value="submit_b"> Get word sentiment and summarise text (into category,keywords & relevance) </button>
+            <button class="btn btn-info shadow-lg p-3 rounded" type="submit" name="submit_e" value="submit_b" > Get word sentiment and summarise text (into category,keywords & relevance) </button>
         </p>
     </form>
 
@@ -188,7 +216,7 @@
 
 
       
-            <textarea class="form-control" rows="5" id="comment" name="username6"></textarea>
+            <textarea class="form-control" rows="5" id="comment" name="username6" placeholder="Enter text"></textarea>
           
         </p>
        
@@ -198,7 +226,58 @@
     </form>
   </div>
 
- 
+
+  <!-- Modal -->
+<div class="modal fade" id="APIModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">HOW TO USE API</h5>
+         
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+        <div class="modal-body">
+            <p style="font-size:12px"> 1. Word Sentiment API : Endpoint: https://kingofsentiments.herokuapp.com/Word_Sentiment/ enter_text</p>
+            <p style="font-size:12px"> 2. Hotel Review Sentiment API : Endpoint: https://kingofsentiments.herokuapp.com/Hotel_Sentiment/ enter_text</p>
+            <p style="font-size:12px"> 3. Word Sentiment and Emotions API : Endpoint: https://kingofsentiments.herokuapp.com/Word_Sentiment_and_Emotions/ enter_text</p>
+            <p style="font-size:12px"> 4. Word Sentiment and Category  API : Endpoint: https://kingofsentiments.herokuapp.com/Word_Sentiment_and_Category/ enter_text</p>
+            <p style="font-size:12px"> 5. Word Sentiment, Emotions and Category API : Endpoint: https://kingofsentiments.herokuapp.com/Word_Sentiment_Emotions_and_Category/ enter_text</p>
+
+            <p style="font-size:12px"> HOW TO USE PROGRAMATICALLY IN PYTHON: </p>
+            <img style="width: 400px; height:400px ;"  src="https://projectsss.s3.us-east-2.amazonaws.com/NLPPPS.PNG" class="card-img-top" alt="...">
+
+
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <div class="text-center" >
+  <p>
+    Developed by oluyede segun jr
+    <img style="width: 40px; height:40px ;  border-radius: 50%;"  src="https://projectsss.s3.us-east-2.amazonaws.com/JOE_5170.jpg" class="card-img-top" alt="...">
+
+                          
+  <a href="https://web.facebook.com/oluyede.olusegunjunior/"><i data-toggle="tooltip1" title="facebook" class="fab fa-facebook"></i></a>
+   <a href="https://www.instagram.com/oluyedesegjr/"><i data-toggle="tooltip2" title="instagram" class="fab fa-instagram"></i></a>
+
+   <a href="https://twitter.com/oluyedejun1"><i data-toggle="tooltip3" title="twitter" class="fab fa-twitter"></i></a>
+<a href="https://www.linkedin.com/in/oluyede-segun-jr-a-a5550b167/"><i data-toggle="tooltip4" title="linkedin" class="fab fa-linkedin"></i></a>
+<a href="https://medium.com/@juniorboyboy2"><i data-toggle="tooltip5" title="medium" class="fab fa-medium"></i></a>
+<a href="https://github.com/juniorboycoder"><i  data-toggle="tooltip6" title="github" class="fab fa-github"></i></a>
+  </p>
+</div>
+</body>
+</body>
 <!-- Back to top button -->
 <a id="button"></a>
 
