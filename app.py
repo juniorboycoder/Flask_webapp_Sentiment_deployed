@@ -12,6 +12,8 @@ import pickle
 import nltk
 nltk.downloader.download('vader_lexicon')
 
+nltk.download('stopwords')
+
 from io import BytesIO
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
