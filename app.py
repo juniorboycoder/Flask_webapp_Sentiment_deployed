@@ -1,4 +1,5 @@
 
+#BASIC APP EXAMPLE 
 from flask import Flask, render_template
 import json
 from ibm_watson import NaturalLanguageUnderstandingV1
@@ -22,30 +23,21 @@ import pandas as pd
 import numpy as np
 
 import boto3
-import os
-from os import environ
-
-from os import getenv
-
 
 app= Flask(__name__)
 
-#define keys as enviroment variable
-# use set commad on windows cmd
 
-aws_access_key_id = getenv('aws_access_key_id', None)
-aws_secret_access_key = getenv('aws_secret_access_key', None)
-
-
-
-
-#app.config['aws_access_key_id']= environ.get('aws_access_key_id')
-
-#app.config['aws_secret_access_key']= environ.get('aws_secret_access_key')
-
-a= aws_access_key_id 
-b=aws_secret_access_key
-
+import json as j
+import pandas as pd
+import re
+import numpy as np
+from nltk.corpus import stopwords
+from nltk.stem import SnowballStemmer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.svm import LinearSVC
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
+from sklearn.feature_selection import SelectKBest, chi2
 
 
 def func(x):
@@ -66,14 +58,13 @@ def index():
     message3= ''
     if request.method == 'POST':
       if request.form.get("submit_a"):
-        #get text from the form
-        text = request.form.get('text')  # access the data inside 
-        #to get words : if the text is less tha 10 letters
-        if text == request.form.get('text')[:10]:
-            #use the vadet sentiment analyzer
+        username = request.form.get('username')  # access the data inside 
+       
+        if username == request.form.get('username')[:10]:
+
             sid = SentimentIntensityAnalyzer()
         
-            response3=sid.polarity_scores(text)
+            response3=sid.polarity_scores(username)
 
             e=pd.DataFrame(response3,index=[0])
 
@@ -81,23 +72,21 @@ def index():
 
             g=e['compound'].apply(func)
 
-            if text == text:
-                message=text
+            if username == username:
+                message=username
                 message3=g[0]
-        # using the IBM Natural language understanding API
-
-        elif text == request.form.get('text'):
+        elif username == request.form.get('username'):
             #using ibm transfer learning model
-            authenticator = IAMAuthenticator(' your IAMAuthenticator key ')
+            authenticator = IAMAuthenticator('rbtGWgXbcWSXelgPEC9Ag-U6ZljN1tXJy4HBl82lSpuE')
             natural_language_understanding = NaturalLanguageUnderstandingV1(
                 version='2020-08-01',
                 authenticator=authenticator
             )
-        #API endpoint
+
             natural_language_understanding.set_service_url('https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a8f00db8-d8f7-465f-9fc6-89722ba0af65')
-        #Response   
+            
             response = natural_language_understanding.analyze(
-                text=text,
+                text=username,
                 features=Features(
                 entities=EntitiesOptions(emotion=True, sentiment=True, limit=1),
                 keywords=KeywordsOptions(emotion=True, sentiment=True,
@@ -113,32 +102,36 @@ def index():
             result111=result11.replace('document', 'The_Whole_Sentence')
             result2=result111[80:].splitlines()
             
+            #using your trained model
+            #pickle_in = open("nlpsenti.pickle","rb")
+            #model = pickle.load(pickle_in)
+
             
 
-            if text == text:
-                message = text
+            if username == username:
+                message = username
                 message2=result2
                 
       elif request.form.get("submit_b"):
         # access the data inside 
-        text2 = request.form.get('text2')
+        username2 = request.form.get('username2')
        
-        if text2 == request.form.get('text2')[:10]:
+        if username2 == request.form.get('username2')[:10]:
 
             sid = SentimentIntensityAnalyzer()
         
-            response3=sid.polarity_scores(text2)
+            response3=sid.polarity_scores(username2)
             e=pd.DataFrame(response3,index=[0])
 
             f=e.apply(lambda score_dict: e['compound'])
 
             g=e['compound'].apply(func)
-            if text2 == text2:
-                 message=text2
+            if username2 == username2:
+                 message=username2
                  message3=g[0]
-        elif text2 == request.form.get('text2'):
+        elif username2 == request.form.get('username2'):
             #using ibm transfer learning model
-            authenticator = IAMAuthenticator('your IAMAuthenticator ')
+            authenticator = IAMAuthenticator('rbtGWgXbcWSXelgPEC9Ag-U6ZljN1tXJy4HBl82lSpuE')
             natural_language_understanding = NaturalLanguageUnderstandingV1(
                 version='2020-08-01',
                 authenticator=authenticator
@@ -147,7 +140,7 @@ def index():
             natural_language_understanding.set_service_url('https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a8f00db8-d8f7-465f-9fc6-89722ba0af65')
             
             response = natural_language_understanding.analyze(
-                text=text2,
+                text=username2,
                 features=Features(
                 entities=EntitiesOptions( sentiment=True),
                 keywords=KeywordsOptions( sentiment=True),
@@ -160,33 +153,37 @@ def index():
             result111=result11.replace('document', 'The_Whole_Sentence')
             result2=result111[80:].splitlines()
             
+            #using your trained model
+            #pickle_in = open("nlpsenti.pickle","rb")
+            #model = pickle.load(pickle_in)
 
+            
 
-            if text2 == text2:
-                message = text2
+            if username2 == username2:
+                message = username2
                 message2=result2
                 
                 
       elif request.form.get("submit_c"):
         # access the data inside 
-        text3 = request.form.get('text3')
+        username3 = request.form.get('username3')
        
-        if text3 == request.form.get('text3')[:10]:
+        if username3 == request.form.get('username3')[:10]:
 
             sid = SentimentIntensityAnalyzer()
         
-            response3=sid.polarity_scores(text3)
+            response3=sid.polarity_scores(username3)
             e=pd.DataFrame(response3,index=[0])
 
             f=e.apply(lambda score_dict: e['compound'])
 
             g=e['compound'].apply(func)
-            if text3 == text3:
-                 message=text3
+            if username3 == username3:
+                 message=username3
                  message3=g[0]
-        elif text3 == request.form.get('text3'):
+        elif username3 == request.form.get('username3'):
             #using ibm transfer learning model
-            authenticator = IAMAuthenticator('your IAMAuthenticator ')
+            authenticator = IAMAuthenticator('rbtGWgXbcWSXelgPEC9Ag-U6ZljN1tXJy4HBl82lSpuE')
             natural_language_understanding = NaturalLanguageUnderstandingV1(
                 version='2020-08-01',
                 authenticator=authenticator
@@ -195,7 +192,7 @@ def index():
             natural_language_understanding.set_service_url('https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a8f00db8-d8f7-465f-9fc6-89722ba0af65')
             
             response = natural_language_understanding.analyze(
-                text=text3,
+                text=username3,
                 features=Features(
                 keywords=KeywordsOptions( sentiment=True),
                 sentiment=SentimentOptions(),
@@ -208,32 +205,36 @@ def index():
             result111=result11.replace('document', 'The_Whole_Sentence')
             result2=result111[80:].splitlines()
             
+            #using your trained model
+            #pickle_in = open("nlpsenti.pickle","rb")
+            #model = pickle.load(pickle_in)
+
             
 
-            if text3 == text3:
-                message = text3
+            if username3 == username3:
+                message = username3
                 message2=result2
                   
       elif request.form.get("submit_d"):
         # access the data inside 
-        text4 = request.form.get('text4')
+        username4 = request.form.get('username4')
        
-        if text4 == request.form.get('text4')[:10]:
+        if username4 == request.form.get('username4')[:10]:
 
             sid = SentimentIntensityAnalyzer()
         
-            response3=sid.polarity_scores(text4)
+            response3=sid.polarity_scores(username4)
             e=pd.DataFrame(response3,index=[0])
 
             f=e.apply(lambda score_dict: e['compound'])
 
             g=e['compound'].apply(func)
-            if text4 == text4:
-                message=text4
+            if username4 == username4:
+                message=username4
                 message3=g[0]
-        elif text4 == request.form.get('text4'):
+        elif username4 == request.form.get('username4'):
             #using ibm transfer learning model
-            authenticator = IAMAuthenticator('your IAMAuthenticator ')
+            authenticator = IAMAuthenticator('rbtGWgXbcWSXelgPEC9Ag-U6ZljN1tXJy4HBl82lSpuE')
             natural_language_understanding = NaturalLanguageUnderstandingV1(
                 version='2020-08-01',
                 authenticator=authenticator
@@ -242,7 +243,7 @@ def index():
             natural_language_understanding.set_service_url('https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a8f00db8-d8f7-465f-9fc6-89722ba0af65')
             
             response = natural_language_understanding.analyze(
-                text=text4,
+                text=username4,
                 features=Features(
                 keywords=KeywordsOptions( sentiment=True),
                 sentiment=SentimentOptions(),
@@ -255,32 +256,36 @@ def index():
             result11=result1.replace('"count": 1', '')
             result111=result11.replace('document', 'The_Whole_Sentence')
             result2=result111[80:].splitlines()
+            
+            #using your trained model
+            #pickle_in = open("nlpsenti.pickle","rb")
+            #model = pickle.load(pickle_in)
 
             
 
-            if text4 == text4:
-                message = text4
+            if username4 == username4:
+                message = username4
                 message2=result2
 
       elif request.form.get("submit_e"):        
-        text5 = request.form.get('text5')
+        username5 = request.form.get('username5')
        
-        if text5 == request.form.get('text5')[:10]:
+        if username5 == request.form.get('username5')[:10]:
 
             sid = SentimentIntensityAnalyzer()
         
-            response3=sid.polarity_scores(text5)
+            response3=sid.polarity_scores(username5)
             e=pd.DataFrame(response3,index=[0])
 
             f=e.apply(lambda score_dict: e['compound'])
 
             g=e['compound'].apply(func)
-            if text5 == text5:
-                 message=text5
+            if username5 == username5:
+                 message=username5
                  message3=g[0]
-        elif text5 == request.form.get('text5'):
+        elif username5 == request.form.get('username5'):
             #using ibm transfer learning model
-            authenticator = IAMAuthenticator('your IAMAuthenticator ')
+            authenticator = IAMAuthenticator('rbtGWgXbcWSXelgPEC9Ag-U6ZljN1tXJy4HBl82lSpuE')
             natural_language_understanding = NaturalLanguageUnderstandingV1(
                 version='2020-08-01',
                 authenticator=authenticator
@@ -289,7 +294,7 @@ def index():
             natural_language_understanding.set_service_url('https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a8f00db8-d8f7-465f-9fc6-89722ba0af65')
             
             response = natural_language_understanding.analyze(
-                text=text5,
+                text=username5,
                 features=Features(
                
                 sentiment=SentimentOptions(),
@@ -302,44 +307,67 @@ def index():
             result11=result1.replace('"count": 1', '')
             result111=result11.replace('document', 'The_Whole_Sentence')
             result2=result111[80:].splitlines()
+            
+            #using your trained model
+            #pickle_in = open("nlpsenti.pickle","rb")
+            #model = pickle.load(pickle_in)
 
            
-            #GET TEXT AND SUMMARIZE USING GENSIM
-            resposesum=summarize(text5, ratio=0.5)
+
+            resposesum=summarize(username5, ratio=0.5)
 
           
-                
-            #TO PRINT OUT ON TEMPLATE
-            if text5 == text5:
-                message = text5
+            print( resposesum)       
+
+            if username5 == username5:
+                message = username5
                 message2=result2
                 message3=json.dumps(resposesum, indent=5)
                
      
       elif request.form.get("submit_f"):        
-        text6 = request.form.get('text6')
+        username6 = request.form.get('username6')
       
-        if text6 == request.form.get('text6'):
+        if username6 == request.form.get('username6'):
            
             
+            #using your trained model
+            #pickle_in = open("hotel2.pickle","rb")
+            #model = pickle.load(pickle_in)
 
-            #resposesum=model.predict([text6])
+            #resposesum=model.predict([username6])
 
-        #use boto3 to load in pickle file from aws S3 bucket 
-            s3 = boto3.resource('s3',aws_access_key_id=a,
-         aws_secret_access_key= b ,region_name='us-east-2')
-            with open('hotelll.pickle', 'wb') as data:
-                s3.Bucket("projectsss").download_fileobj("hotelll.pickle", data)
+            
 
-            with open('hotelll.pickle', 'rb') as data:
-                resposesum = pickle.load(data)
+            #stem words
+            stemmer = SnowballStemmer('english')
 
-         
-            #predict sentiment of text
-            resposesum=resposesum.predict([text6])      
+            #stop words removal
+            words = stopwords.words("english")
 
-            if text6 == text6:
-                message = text6
+            df=pd.read_csv('https://projectsss.s3.us-east-2.amazonaws.com/hotel-reviewss.csv')
+
+            #regular expression to clean dataset remove space and convert to uppercase
+            df['cleaned'] =df['Description'].apply(lambda x: " ".join([stemmer.stem(i) for i in re.sub("[^a-zA-Z]", " ", x).split() if i not in words]).lower())
+
+            #split data
+            X_train, X_test, y_train, y_test = train_test_split(df['cleaned'], df['Is_Response'], test_size=0.2)
+
+            #NLP Trainer
+            pipeline = Pipeline([('vect', TfidfVectorizer(ngram_range=(1, 2), stop_words="english", sublinear_tf=True)),
+                                ('chi',  SelectKBest(chi2, k=10000)),
+                                ('clf', LinearSVC(C=1.0, penalty='l1', max_iter=3000, dual=False))])
+
+            model = pipeline.fit(X_train, y_train)
+
+            
+
+            
+
+            resposesum=model.predict([username6])      
+
+            if username6 == username6:
+                message = username6
                
                 message3=resposesum[0]
      
@@ -353,15 +381,20 @@ def index():
 
 #function for the api
 
+@app.route('/home/<string:name>/<int:id>')
 
-@app.route('/Word_Sentiment/<text>' ,methods=['GET'])
-def Word_Sentiment(text):
+def helloworld(name, id):
+    return "Hello world" + name + str(id)
+
+
+@app.route('/Word_Sentiment/<username>' ,methods=['GET'])
+def Word_Sentiment(username):
     if request.method == 'GET':
-        if text == text[:10]:
+        if username == username[:10]:
 
             sid = SentimentIntensityAnalyzer()
         
-            response3=sid.polarity_scores(text)
+            response3=sid.polarity_scores(username)
             e=pd.DataFrame(response3,index=[0])
 
             f=e.apply(lambda score_dict: e['compound'])
@@ -370,7 +403,7 @@ def Word_Sentiment(text):
 
             # a Python object (dict):
             x = {
-            "word": text,
+            "word": username,
             
             "Sentiment":g[0]
             }
@@ -380,12 +413,12 @@ def Word_Sentiment(text):
 
             # the result is a JSON string:
             print(y)
-            if text == text:
+            if username == username:
                  message=y
                 
         else:
             #using ibm transfer learning model
-            authenticator = IAMAuthenticator('Your IAMAuthenticator key')
+            authenticator = IAMAuthenticator('rbtGWgXbcWSXelgPEC9Ag-U6ZljN1tXJy4HBl82lSpuE')
             natural_language_understanding = NaturalLanguageUnderstandingV1(
                 version='2020-08-01',
                 authenticator=authenticator
@@ -394,7 +427,7 @@ def Word_Sentiment(text):
             natural_language_understanding.set_service_url('https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a8f00db8-d8f7-465f-9fc6-89722ba0af65')
             
             response = natural_language_understanding.analyze(
-                text=text,
+                text=username,
                 features=Features(
                 entities=EntitiesOptions( sentiment=True),
                 keywords=KeywordsOptions( sentiment=True),
@@ -410,7 +443,7 @@ def Word_Sentiment(text):
            
 
             xx = {
-            "word": text,
+            "word": username,
             
             "Sentiment":result2
             }
@@ -420,7 +453,7 @@ def Word_Sentiment(text):
             # the result is a JSON string:
             print(yy)
 
-            if text == text:
+            if username == username:
            
                 message=yy
                
@@ -429,14 +462,14 @@ def Word_Sentiment(text):
     return message
    
 
-@app.route('/Word_Sentiment_and_Emotions/<text>' ,methods=['GET'])
-def Word_Sentiment_and_Emotions(text):
+@app.route('/Word_Sentiment_and_Emotions/<username>' ,methods=['GET'])
+def Word_Sentiment_and_Emotions(username):
     if request.method == 'GET':
-        if text == text[:10]:
+        if username == username[:10]:
 
             sid = SentimentIntensityAnalyzer()
         
-            response3=sid.polarity_scores(text)
+            response3=sid.polarity_scores(username)
             e=pd.DataFrame(response3,index=[0])
 
             f=e.apply(lambda score_dict: e['compound'])
@@ -445,7 +478,7 @@ def Word_Sentiment_and_Emotions(text):
 
             # a Python object (dict):
             x = {
-            "word": text,
+            "word": username,
             
             "Sentiment":g[0]
             }
@@ -455,12 +488,12 @@ def Word_Sentiment_and_Emotions(text):
 
             # the result is a JSON string:
             print(y)
-            if text == text:
+            if username == username:
                  message=y
                 
         else:
             #using ibm transfer learning model
-            authenticator = IAMAuthenticator('your IAMAuthenticator ')
+            authenticator = IAMAuthenticator('rbtGWgXbcWSXelgPEC9Ag-U6ZljN1tXJy4HBl82lSpuE')
             natural_language_understanding = NaturalLanguageUnderstandingV1(
                 version='2020-08-01',
                 authenticator=authenticator
@@ -469,7 +502,7 @@ def Word_Sentiment_and_Emotions(text):
             natural_language_understanding.set_service_url('https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a8f00db8-d8f7-465f-9fc6-89722ba0af65')
             
             response = natural_language_understanding.analyze(
-                text=text,
+                text=username,
                 features=Features(
                 keywords=KeywordsOptions( sentiment=True),
                 sentiment=SentimentOptions(),
@@ -484,7 +517,7 @@ def Word_Sentiment_and_Emotions(text):
             
            
             xx = {
-            "word": text,
+            "word": username,
             
             "Sentiment":result2
             }
@@ -494,7 +527,7 @@ def Word_Sentiment_and_Emotions(text):
             # the result is a JSON string:
             print(yy)
 
-            if text == text:
+            if username == username:
            
                 message=yy
                
@@ -503,14 +536,14 @@ def Word_Sentiment_and_Emotions(text):
     return message
 
 
-@app.route('/Word_Sentiment_and_Category/<text>' ,methods=['GET'])
-def Word_Sentiment_and_Category(text):
+@app.route('/Word_Sentiment_and_Category/<username>' ,methods=['GET'])
+def Word_Sentiment_and_Category(username):
     if request.method == 'GET':
-        if text == text[:10]:
+        if username == username[:10]:
 
             sid = SentimentIntensityAnalyzer()
         
-            response3=sid.polarity_scores(text)
+            response3=sid.polarity_scores(username)
             e=pd.DataFrame(response3,index=[0])
 
             f=e.apply(lambda score_dict: e['compound'])
@@ -519,7 +552,7 @@ def Word_Sentiment_and_Category(text):
 
             # a Python object (dict):
             x = {
-            "word": text,
+            "word": username,
             
             "Sentiment":g[0]
             }
@@ -529,12 +562,12 @@ def Word_Sentiment_and_Category(text):
 
             # the result is a JSON string:
             print(y)
-            if text == text:
+            if username == username:
                  message=y
                 
         else:
             #using ibm transfer learning model
-            authenticator = IAMAuthenticator('your IAMAuthenticator ')
+            authenticator = IAMAuthenticator('rbtGWgXbcWSXelgPEC9Ag-U6ZljN1tXJy4HBl82lSpuE')
             natural_language_understanding = NaturalLanguageUnderstandingV1(
                 version='2020-08-01',
                 authenticator=authenticator
@@ -543,7 +576,7 @@ def Word_Sentiment_and_Category(text):
             natural_language_understanding.set_service_url('https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a8f00db8-d8f7-465f-9fc6-89722ba0af65')
             
             response = natural_language_understanding.analyze(
-                text=text,
+                text=username,
                 features=Features(
                 keywords=KeywordsOptions( sentiment=True),
                 sentiment=SentimentOptions(),
@@ -557,7 +590,7 @@ def Word_Sentiment_and_Category(text):
             
            
             xx = {
-            "word": text,
+            "word": username,
             
             "Sentiment":result2
             }
@@ -567,7 +600,7 @@ def Word_Sentiment_and_Category(text):
             # the result is a JSON string:
             print(yy)
 
-            if text == text:
+            if username == username:
            
                 message=yy
                
@@ -576,14 +609,14 @@ def Word_Sentiment_and_Category(text):
     return message
 
 
-@app.route('/Word_Sentiment_Emotions_and_Category/<text>' ,methods=['GET'])
-def Word_Sentiment_Emotions_and_Category(text):
+@app.route('/Word_Sentiment_Emotions_and_Category/<username>' ,methods=['GET'])
+def Word_Sentiment_Emotions_and_Category(username):
     if request.method == 'GET':
-        if text == text[:10]:
+        if username == username[:10]:
 
             sid = SentimentIntensityAnalyzer()
         
-            response3=sid.polarity_scores(text)
+            response3=sid.polarity_scores(username)
             e=pd.DataFrame(response3,index=[0])
 
             f=e.apply(lambda score_dict: e['compound'])
@@ -592,7 +625,7 @@ def Word_Sentiment_Emotions_and_Category(text):
 
             # a Python object (dict):
             x = {
-            "word": text,
+            "word": username,
             
             "Sentiment":g[0]
             }
@@ -602,12 +635,12 @@ def Word_Sentiment_Emotions_and_Category(text):
 
             # the result is a JSON string:
             print(y)
-            if text == text:
+            if username == username:
                  message=y
                 
         else:
             #using ibm transfer learning model
-            authenticator = IAMAuthenticator('your IAMAuthenticator ')
+            authenticator = IAMAuthenticator('rbtGWgXbcWSXelgPEC9Ag-U6ZljN1tXJy4HBl82lSpuE')
             natural_language_understanding = NaturalLanguageUnderstandingV1(
                 version='2020-08-01',
                 authenticator=authenticator
@@ -616,7 +649,7 @@ def Word_Sentiment_Emotions_and_Category(text):
             natural_language_understanding.set_service_url('https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a8f00db8-d8f7-465f-9fc6-89722ba0af65')
             
             response = natural_language_understanding.analyze(
-                text=text,
+                text=username,
                 features=Features(
                 entities=EntitiesOptions(emotion=True, sentiment=True, limit=1),
                 keywords=KeywordsOptions(emotion=True, sentiment=True,
@@ -631,7 +664,7 @@ def Word_Sentiment_Emotions_and_Category(text):
             
            
             xx = {
-            "word": text,
+            "word": username,
             
             "Sentiment":result2
             }
@@ -641,7 +674,7 @@ def Word_Sentiment_Emotions_and_Category(text):
             # the result is a JSON string:
             print(yy)
 
-            if text == text:
+            if username == username:
            
                 message=yy
                
@@ -650,25 +683,35 @@ def Word_Sentiment_Emotions_and_Category(text):
     return message
 
 
-@app.route('/Hotel_Sentiment/<text>' ,methods=['GET'])
-def Hotel_Sentiment(text):
+@app.route('/Hotel_Sentiment/<username>' ,methods=['GET'])
+def Hotel_Sentiment(username):
     if request.method == 'GET':
-        if text == text:
-
-           
-
-            s3 = boto3.resource('s3',aws_access_key_id=a, aws_secret_access_key= b ,region_name='us-east-2')
-            with open('hotelll.pickle', 'wb') as data:
-                s3.Bucket("projectsss").download_fileobj("hotelll.pickle", data)
-
-            with open('hotelll.pickle', 'rb') as data:
-                resposesum = pickle.load(data)
-
-            print(resposesum) 
-
-            resposesum=resposesum.predict([text])    
+        if username == username:
 
             
+
+            #stem words
+            stemmer = SnowballStemmer('english')
+
+            #stop words removal
+            words = stopwords.words("english")
+
+            df=pd.read_csv('https://projectsss.s3.us-east-2.amazonaws.com/hotel-reviewss.csv')
+
+            #regular expression to clean dataset remove space and convert to uppercase
+            df['cleaned'] =df['Description'].apply(lambda x: " ".join([stemmer.stem(i) for i in re.sub("[^a-zA-Z]", " ", x).split() if i not in words]).lower())
+
+            #split data
+            X_train, X_test, y_train, y_test = train_test_split(df['cleaned'], df['Is_Response'], test_size=0.2)
+
+            #NLP Trainer
+            pipeline = Pipeline([('vect', TfidfVectorizer(ngram_range=(1, 2), stop_words="english", sublinear_tf=True)),
+                                ('chi',  SelectKBest(chi2, k=10000)),
+                                ('clf', LinearSVC(C=1.0, penalty='l1', max_iter=3000, dual=False))])
+
+            model = pipeline.fit(X_train, y_train)
+
+            resposesum=model.predict([username])    
 
             xx = str(resposesum)
            
@@ -677,13 +720,13 @@ def Hotel_Sentiment(text):
             # the result is a JSON string:
             print(yy)
 
-            if text == text:
+            if username == username:
            
                 message=yy
                
             return  json.dumps(message)
-    
-    return  message 
+
+    return message
 
 #incase running form command line ,to give full error. and continue running code
 if __name__=="__main__":
