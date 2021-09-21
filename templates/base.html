@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% block head %}
+    <title>KingofSentiments</title>
+    {% endblock %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" >
+</head>
+<body>
+
+        {% block body%}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+        
+
+        <style>
+            #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+position: fixed;
+left: 0px;
+top: 0px;
+width: 100%;
+height: 100%;
+z-index: 9999;
+background: url(https://projectsss.s3.us-east-2.amazonaws.com/ScaryNegligibleArcherfish-small.gif) center no-repeat #fff;
+}
+              
+          </style>
+
+<script>
+    $(window).load(function() {
+      // Animate loader off screen
+      $(".se-pre-con").fadeOut("slow");;
+    });
+   </script>        
+<body>
+
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Sentiment_King<i class='far fa-grin-squint' style='font-size:15px'></i><i class='far fa-grin' style='font-size:15px'></i><i class='far fa-grimace' style='font-size:15px'></i></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+               
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link shadow p-3  bg-grey rounded" href="#wordsenti">Word Sentiment <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <div class="vr">&nbsp;</div>
+
+                    
+                    
+                      <div class="vr">&nbsp;</div>
+                      <li class="nav-item">
+                        <a class="nav-link shadow p-3  bg-grey rounded" href="#wordandemo">Get word sentiment & emotions</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link shadow p-3  bg-grey rounded" href="#wordandcate"> Get word sentiment & Category </a>
+
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link shadow p-3  bg-grey rounded" href="#getall">Get (Sentiments, Emotion & Categories) of Keywords & Entities</a>
+                      </li>
+                    
+                      <li class="nav-item">
+                        <a class="nav-link shadow p-3  bg-grey rounded" href="#wordandsum">  Get word sentiment and summarise text </a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a class="nav-link shadow p-3  bg-grey rounded" href="#wordandcustom"> Custom classifier for hotel room sentiment </a>
+                      </li>
+                  </ul>
+                  <div class="form-inline my-2 my-lg-0">
+                    <a class="nav-link shadow p-3  bg-grey rounded"  data-toggle="modal" data-target="#APIModal"> API FEATURES </a>
+                  </div>
+                </div>
+              </nav>
+         
+<div class="jumbotron">
+<div class="container">
+ 
+    <br>
+    <br>
+    <br>
+    <h4> WORD :</h4>
+    {% if message %}
+    <p>{{ message }}</p>
+    <br>
+    <br>
+  
+    {% endif %}
+
+    <h6>SENTIMENTS/ EMOTIONS / CATEGORY / SUMMARY :</h6>
+    {% if message2 %}
+    <p>{{ message3 }}</p>
+    <p>{{ message2 }}</p>
+    
+    {% endif %}
+
+    
+
+    <hr class="my-4">
+
+
+     
+
+
+
+
+
+    <div class="row col-lg-12" id="wordsenti">
+
+            <form action="" method="post" class="col-lg-6">
+                    <p>
+                        
+            
+            
+                  
+                        <textarea class="form-control" rows="5" id="comment" name="text2" placeholder="Enter text"></textarea>
+                      
+                    </p>
+                   
+                    <p>
+                        <button class="btn btn-info shadow-lg p-3 rounded" type="submit" name="submit_b" value="submit_b" placeholder="Enter text"> Get word Sentiment </button>
+                    </p>
+                </form>
+   
+
+    <hr class="my-4">
+
+
+    <form action="" method="post" class="col-lg-6"  id="wordandemo">
+        <p>
+            
+
+
+      
+            <textarea class="form-control" rows="5" id="comment" name="text3" placeholder="Enter text"></textarea>
+          
+        </p>
+       
+        <p>
+            <button class="btn btn-info shadow-lg p-3 rounded" type="submit" name="submit_c" value="submit_b"> Get word sentiment & emotions </button>
+        </p>
+    </form>
+
+    <form action="" method="post" class="col-lg-6" id="wordandcate">
+    
+        <p>
+            
+
+
+      
+            <textarea class="form-control" rows="5" id="comment" name="text4" placeholder="Enter text"></textarea>
+          
+        </p>
+       
+        <p>
+            <button class="btn btn-info shadow-lg p-3 rounded" type="submit" name="submit_d" value="submit_b"> Get word sentiment & Category </button>
+        </p>
+    </form>
+
+    <form action="" method="post" class="col-lg-6"  id="getall">
+      <p>
+          
+
+
+    
+          <textarea class="form-control" rows="5" id="comment" name="text" placeholder="Enter text"></textarea>
+        
+      </p>
+     
+      <p>
+          <button class="btn btn-info shadow-lg p-3 rounded" type="submit" name="submit_a" value="submit_a"> Get (Sentiments, Emotion & Categories) of Keywords & Entities </button>
+      </p>
+  </form>
+
+    <form action="" method="post" class="col-lg-6" id="wordandsum">
+ 
+        <p>
+            
+
+
+      
+            <textarea class="form-control" rows="5" id="comment" name="text5" placeholder="Enter text"></textarea>
+          
+        </p>
+       
+        <p>
+            <button class="btn btn-info shadow-lg p-3 rounded" type="submit" name="submit_e" value="submit_b" > Get word sentiment and summarise text (into category,keywords & relevance) </button>
+        </p>
+    </form>
+
+    <form action="" method="post" class="col-lg-6" id="wordandcustom">
+   
+        <p>
+            
+
+
+      
+            <textarea class="form-control" rows="5" id="comment" name="text6" placeholder="Enter text"></textarea>
+          
+        </p>
+       
+        <p>
+            <button class="btn btn-info shadow-lg p-3 rounded" type="submit" name="submit_f" value="submit_b"> Custom classifier for hotel room sentiment </button>
+        </p>
+    </form>
+  </div>
+
+
+  <!-- Modal -->
+<div class="modal fade" id="APIModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">HOW TO USE API</h5>
+         
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+        <div class="modal-body">
+            <p style="font-size:12px"> 1. Word Sentiment API : Endpoint: https://kingofsentiments.herokuapp.com/Word_Sentiment/ enter_text</p>
+            <p style="font-size:12px"> 2. Hotel Review Sentiment API : Endpoint: https://kingofsentiments.herokuapp.com/Hotel_Sentiment/ enter_text</p>
+            <p style="font-size:12px"> 3. Word Sentiment and Emotions API : Endpoint: https://kingofsentiments.herokuapp.com/Word_Sentiment_and_Emotions/ enter_text</p>
+            <p style="font-size:12px"> 4. Word Sentiment and Category  API : Endpoint: https://kingofsentiments.herokuapp.com/Word_Sentiment_and_Category/ enter_text</p>
+            <p style="font-size:12px"> 5. Word Sentiment, Emotions and Category API : Endpoint: https://kingofsentiments.herokuapp.com/Word_Sentiment_Emotions_and_Category/ enter_text</p>
+
+            <p style="font-size:12px"> HOW TO USE PROGRAMATICALLY IN PYTHON: </p>
+            <img style="width: 400px; height:400px ;"  src="https://projectsss.s3.us-east-2.amazonaws.com/NLPPPS.PNG" class="card-img-top" alt="...">
+
+
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <div class="text-center" >
+  <p>
+    Developed by oluyede segun jr
+    <img style="width: 40px; height:40px ;  border-radius: 50%;"  src="https://projectsss.s3.us-east-2.amazonaws.com/JOE_5170.jpg" class="card-img-top" alt="...">
+
+                          
+  <a href="https://web.facebook.com/oluyede.olusegunjunior/"><i data-toggle="tooltip1" title="facebook" class="fab fa-facebook"></i></a>
+   <a href="https://www.instagram.com/oluyedesegjr/"><i data-toggle="tooltip2" title="instagram" class="fab fa-instagram"></i></a>
+
+   <a href="https://twitter.com/oluyedejun1"><i data-toggle="tooltip3" title="twitter" class="fab fa-twitter"></i></a>
+<a href="https://www.linkedin.com/in/oluyede-segun-jr-a-a5550b167/"><i data-toggle="tooltip4" title="linkedin" class="fab fa-linkedin"></i></a>
+<a href="https://medium.com/@juniorboyboy2"><i data-toggle="tooltip5" title="medium" class="fab fa-medium"></i></a>
+<a href="https://github.com/juniorboycoder"><i  data-toggle="tooltip6" title="github" class="fab fa-github"></i></a>
+  </p>
+</div>
+</body>
+</body>
+<!-- Back to top button -->
+<a id="button"></a>
+
+<script>
+var btn = $('#button');
+
+$(window).scroll(function() {
+  if ($(window).scrollTop() > 300) {
+    btn.addClass('show');
+  } else {
+    btn.removeClass('show');
+  }
+});
+
+btn.on('click', function(e) {
+  e.preventDefault();
+  $('html, body').animate({scrollTop:0}, '300');
+});
+
+
+</script>
+
+<style>
+#button {
+  display: inline-block;
+  background-color:grey;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+#button::after {
+  content: "\f077";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+  color: #fff;
+}
+#button:hover {
+  cursor: pointer;
+  background-color: grey;
+}
+#button:active {
+  background-color: #555;
+}
+#button.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Styles for the content section */
+
+.content {
+  width: 77%;
+  margin: 50px auto;
+  font-family: 'Merriweather', serif;
+  font-size: 17px;
+  color: #6c767a;
+  line-height: 1.9;
+}
+@media (min-width: 500px) {
+  .content {
+    width: 43%;
+  }
+  #button {
+    margin: 30px;
+  }
+}
+.content h1 {
+  margin-bottom: -10px;
+  color: #03a9f4;
+  line-height: 1.5;
+}
+.content h3 {
+  font-style: italic;
+  color: #96a2a7;
+}
+</style>
+</div>
+</div>
+
+</body>
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+        {% endblock %}
+   
+</body>
+</html>
+
